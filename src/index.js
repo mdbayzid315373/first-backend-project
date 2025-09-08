@@ -1,11 +1,21 @@
 import dotenv from "dotenv"
-import connectDB from "./db"
+import connectDB from './db/index.js';
+
 
 dotenv.config({
     path: './env'
 })
 
+async function start() {
+    await connectDB();  // <-- connectDB call
 
+    // Process keep alive (যদি server না চালাও)
+    setInterval(() => {}, 1000);
+
+    console.log("✅ Process running, Nodemon will monitor changes.");
+}
+
+start();
 
 
 
