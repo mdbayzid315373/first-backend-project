@@ -1,22 +1,24 @@
 import dotenv from "dotenv"
 import connectDB from './db/index.js';
+import { app } from "./app.js";
 
 
 dotenv.config({
     path: './env'
 })
 
-async function start() {
-    await connectDB();  // <-- connectDB call
+connectDB()
 
-    // Process keep alive (যদি server না চালাও)
-    setInterval(() => {}, 1000);
-
-    console.log("✅ Process running, Nodemon will monitor changes.");
-}
-
-start();
-
+.then(() => {
+    app.listen(process.env.PORT || 8000, () =>{
+        console.log(`server is running at port : ${process.env.PORT}`);
+        
+    })
+})
+.catch((err) => {
+    console.log("mongoDBconnection faild", err);
+    
+})
 
 
 
